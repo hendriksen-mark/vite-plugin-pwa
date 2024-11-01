@@ -65,7 +65,6 @@ export async function configureStaticAssets(
     includeAssets,
     includeManifestIcons,
     manifestFilename,
-    FILE_SW_REGISTER,
   } = resolvedVitePWAOptions
 
   const useInjectManifest = strategies === 'injectManifest'

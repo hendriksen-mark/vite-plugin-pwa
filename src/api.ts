@@ -4,7 +4,7 @@ import type { OutputBundle } from 'rollup'
 import { cyan, yellow } from 'kolorist'
 import { generateInjectManifest, generateServiceWorker } from './modules'
 import { generateWebManifestFile } from './assets'
-import { DEV_SW_NAME, FILE_SW_REGISTER } from './constants'
+import { DEV_SW_NAME } from './constants'
 import {
   generateRegisterDevSW,
   generateRegisterSW,
@@ -51,14 +51,14 @@ export function _generateBundle(ctx: PWAPluginContext, bundle?: OutputBundle) {
   if (options.injectRegister === 'auto')
     options.injectRegister = useImportRegister ? false : 'script'
 
-  if ((options.injectRegister === 'script' || options.injectRegister === 'script-defer') && !existsSync(resolve(viteConfig.publicDir, FILE_SW_REGISTER))) {
-    bundle[FILE_SW_REGISTER] = {
+  if ((options.injectRegister === 'script' || options.injectRegister === 'script-defer') && !existsSync(resolve(viteConfig.publicDir, options.FILE_SW_REGISTER))) {
+    bundle[options.FILE_SW_REGISTER] = {
       // @ts-expect-error: for Vite 3 support, Vite 4 has removed `isAsset` property
       isAsset: true,
       type: 'asset',
       name: undefined,
       source: generateSimpleSWRegister(options, false),
-      fileName: FILE_SW_REGISTER,
+      fileName: options.FILE_SW_REGISTER,
     }
   }
   return bundle

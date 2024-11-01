@@ -268,6 +268,10 @@ export interface VitePWAOptions {
    */
   manifestFilename?: string
   /**
+   * @default 'registerSW.js'
+   */
+  FILE_SW_REGISTER?: string
+  /**
    * @default 'generateSW'
    */
   strategies?: 'generateSW' | 'injectManifest'

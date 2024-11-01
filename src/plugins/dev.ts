@@ -14,7 +14,6 @@ import {
   DEV_REGISTER_SW_NAME,
   DEV_SW_NAME,
   DEV_SW_VIRTUAL,
-  FILE_SW_REGISTER,
   RESOLVED_DEV_SW_VIRTUAL,
 } from '../constants'
 import type { ResolvedVitePWAOptions } from '../types'
@@ -234,13 +233,13 @@ async function createDevRegisterSW(options: ResolvedVitePWAOptions, viteConfig: 
     if (!existsSync(devDist))
       mkdirSync(devDist, { recursive: true })
 
-    const registerSW = resolve(devDist, FILE_SW_REGISTER)
+    const registerSW = resolve(devDist, options.FILE_SW_REGISTER)
     if (!swDevOptions.registerSWGenerated) {
       await fs.writeFile(registerSW, generateSimpleSWRegister(options, true), { encoding: 'utf8' })
       swDevOptions.registerSWGenerated = true
     }
 
-    swDevOptions.workboxPaths.set(normalizePath(`${options.base}${FILE_SW_REGISTER}`), registerSW)
+    swDevOptions.workboxPaths.set(normalizePath(`${options.base}${options.FILE_SW_REGISTER}`), registerSW)
   }
 }
 
@@ -262,7 +261,7 @@ function createWSResponseHandler(server: ViteDevServer, ctx: PWAPluginContext): 
           mode: options.injectRegister,
           scope,
           inlinePath: `${base}${DEV_SW_NAME}`,
-          registerPath: `${base}${FILE_SW_REGISTER}`,
+          registerPath: `${base}${options.FILE_SW_REGISTER}`,
           swType: options.devOptions.type,
         },
       })

@@ -4,7 +4,6 @@ import {
   DEV_REGISTER_SW_NAME,
   DEV_SW_NAME,
   DEV_SW_VIRTUAL,
-  FILE_SW_REGISTER,
 } from './constants'
 import type { ResolvedVitePWAOptions } from './types'
 
@@ -61,7 +60,7 @@ export function generateRegisterSW(options: ResolvedVitePWAOptions, dev: boolean
   }
   else if (options.injectRegister === 'script' || options.injectRegister === 'script-defer') {
     const hasDefer = options.injectRegister === 'script-defer'
-    return `<script id="vite-plugin-pwa:register-sw" src="${dev ? options.base : options.buildBase}${FILE_SW_REGISTER}"${hasDefer ? ' defer' : ''}></script>`
+    return `<script id="vite-plugin-pwa:register-sw" src="${dev ? options.base : options.buildBase}${options.FILE_SW_REGISTER}"${hasDefer ? ' defer' : ''}></script>`
   }
 
   return undefined
